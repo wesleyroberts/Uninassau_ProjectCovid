@@ -29,18 +29,23 @@ public class TableCovidResourceImpl implements TableCovidResource {
     @Override
     @GetMapping(value = "/all")
     public ResponseEntity<List<TableCovid>> getAll() {
+        try{
         return ResponseEntity.status(HttpStatus.FOUND).body(tableCovidRepository.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
     @Override
     @GetMapping(value = "/location/{location}")
     public ResponseEntity<List<TableCovid>> getByLocation(@PathVariable("location") String location) {
-        List<TableCovid> lista = new ArrayList<>();
-        for (TableCovid t:tableCovidRepository.findAll()) {
-            if(t.getLocation().equals("Angola")){
-                lista.add(t);
-            }
+        try {
+            return ResponseEntity.status(HttpStatus.FOUND).body(tableCovidRepository.findByLocation(location));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return ResponseEntity.status(HttpStatus.FOUND).body(lista);
     }
 
     @Override

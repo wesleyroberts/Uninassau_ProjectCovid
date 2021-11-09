@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafico</title>
+</head>
+<body>
+
+    
+    <canvas id="chart" width="400" height="400"></canvas>
+   <script>
+    const infoData = new Array;
+    const infoDeaths = new Array;
+   fetch('http://localhost:8080/data/location/Algeria')
+            .then(response => response.json())
+            .then(data => data.forEach(element => {
+                infoData.push(element.date)
+                infoDeaths.push(element.total_deaths)
+            }))
+            
+           
+        const ctx = document.getElementById('chart')
+        
+        //type, Data e options
+        var chartGraph = new Chart(ctx,{
+            type:"line",
+            data:{
+                labels:infoData,
+                datasets:[{
+                    label:" testando",
+                    data:infoDeaths,
+                    borderWidth:4,
+                    borderColor: 'rgba(77,166,253,0.85)',
+                     backgroundColor:'transparent'
+                }]
+            }
+        })
+    </script>
+</body>
+</html>
