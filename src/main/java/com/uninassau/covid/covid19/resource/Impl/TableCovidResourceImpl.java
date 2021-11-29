@@ -49,6 +49,31 @@ public class TableCovidResourceImpl implements TableCovidResource {
     }
 
     @Override
+    @GetMapping(value = "/continent/{continent}")
+    public ResponseEntity<List<TableCovid>> getByContinent(@PathVariable("continent") String continent) {
+        try {
+            return ResponseEntity.status(HttpStatus.FOUND).body(tableCovidRepository.finByContinent(continent));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    @Override
+    @GetMapping(value = "/countries")
+    public ResponseEntity<List<String>> getAllCountries() {
+        try {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(tableCovidRepository.getAllCountries());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+    @Override
     @PostMapping(value = "/gerar")
     public ResponseEntity<List<TableCovid>> updateTable() throws IOException {
 

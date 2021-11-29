@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from "react";
-import { GET } from "../resquestsFunctions/RequestsFunctions";
+import { GetByLocation } from "../resquestsFunctions/RequestsFunctions";
 import {Line} from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -22,33 +22,59 @@ ChartJS.register(
     Legend
   );
 
-export default function Grafico(){
+export default function Grafico({country,countriesList}){
 
     const [state, setstate] = useState([]);
 
     useEffect(() => {
-        GET("Brazil").then((data) => setstate(data));
-      }, []);  
+        setstate(GetByLocation(countriesList))
+      }, [countriesList]);  
      
 
-    var labels = state.map((item,index)=>{
-      if(index%30===0){
-          return item.date;  
-      }
-  });
+    function lerLabels(item){
+      let lista = [];
+      item.forEach((element,index) => {
+        if(index%30===0){
+          lista.push(element.date);
+        }
+      });
+      return lista;
+    }
+
+    function lerData(item){
+      let lista = [];
+      for (let index = 0; index < countriesList.length; index++) {            
+            if(countriesList[index]==item.location){
+              item.forEach((element,index) => {
+                if(index%30===0){
+                  lista.push(element.total_deaths);
+                }
+              });
+                break;
+            }       
+        }
+      return lista;
+    }
+
+    
+  function createDataSets(array){  
+    array.forEach((item)=>{
+      return {
+        label: item,
+        data:lerData(state),
+        fill: false,
+        backgroundColor:'transparent',
+        borderColor: 'rgb(255, 99, 132,)',
+        tension: 0.1
+        }
+    })
+  }
+   
+
     // contém informações a respeito dos dados do grafico    
     const data = {
-        labels: labels,
-        datasets: [{
-            label: "Brasil",
-            data: state.map((item)=>{return  item.total_deaths}),
-            fill: false,
-            backgroundColor:'transparent',
-            borderColor: 'rgb(255, 99, 132,)',
-            tension: 10
-        },
-    ],
-    
+        labels: lerLabels(state),
+        datasets: [createDataSets(countriesList)],
 };  
     //contém informçaões a respeito das caracteristicas do gráfico
     const options = {
@@ -70,8 +96,7 @@ export default function Grafico(){
 
     return(
         <div>
-            <h1>testando a bagaceira</h1>
-             <Line data = {data} options= {options}/>
+            <Line data = {data} options= {options}/>
         </div>
     );
 }
