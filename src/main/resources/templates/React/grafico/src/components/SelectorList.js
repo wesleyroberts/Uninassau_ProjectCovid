@@ -29,14 +29,14 @@ export default function SelectorList({countries,onChange,setCountriesList}) {
                .map((item,index)=>
                <option size="sm" value={item} key={index}>{item}</option>)}
             </Form.Select>
-            <ListGroup >
+            {/* <ListGroup >
                 {countries.map((item,index)=>
                     <div className="scrollspySite">
                       <Form.Check label={item} value={item} type={'checkbox'} id={index} onClick={handleCheckBox}></Form.Check>
                     </div>
                  )}
 
-            </ListGroup>
+            </ListGroup> */}
             </Form>
           
         </div>

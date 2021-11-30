@@ -1,15 +1,7 @@
 export function GetByLocation(location) {
-  let arraylist = [];
-  location.forEach(element => {
-     fetch(
-      `http://localhost:8080/data/location/${element}`,
-    { method: "GET" }
-    )
-  .then((res) => res.json())
-  .then((data) => arraylist.push(data));
-  });
-  return arraylist;
-  }
+    return fetch(`http://localhost:8080/data/location/${location}`,{ method: "GET" }).then((res) => res.json())
+
+}
 
 export function GETAllCountries() {
     return fetch(

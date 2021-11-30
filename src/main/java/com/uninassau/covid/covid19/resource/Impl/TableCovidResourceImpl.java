@@ -47,6 +47,22 @@ public class TableCovidResourceImpl implements TableCovidResource {
             return null;
         }
     }
+    @Override
+    @GetMapping(value = "/locations/{locations}")
+    public ResponseEntity<List<TableCovid>> getByLocation(@PathVariable("locations") String[] locations) {
+        try {
+            List<TableCovid> list = new ArrayList<TableCovid>();
+            for (String country:locations) {
+                list.addAll(tableCovidRepository.findByLocation(country));
+                System.out.println(country);
+            }
+
+            return ResponseEntity.status(HttpStatus.FOUND).body(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     @GetMapping(value = "/continent/{continent}")

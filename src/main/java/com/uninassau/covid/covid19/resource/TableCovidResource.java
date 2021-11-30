@@ -13,6 +13,7 @@ public interface TableCovidResource {
 
     ResponseEntity<List<TableCovid>> getAll();
     ResponseEntity<List<TableCovid>> getByLocation(@RequestBody String location);
+    ResponseEntity<List<TableCovid>> getByLocation(@PathVariable("locations") String[] locations);
     ResponseEntity<List<TableCovid>> getByContinent(@PathVariable("continent") String continent);
     ResponseEntity<List<String>> getAllCountries();
     ResponseEntity<List<TableCovid>> updateTable() throws IOException;
