@@ -15,6 +15,10 @@ public interface TableCovidResource {
     ResponseEntity<List<TableCovid>> getByLocation(@RequestBody String location);
     ResponseEntity<List<TableCovid>> getByLocation(@PathVariable("locations") String[] locations);
     ResponseEntity<List<TableCovid>> getByContinent(@PathVariable("continent") String continent);
+
+    @GetMapping(value = "/continets")
+    ResponseEntity<List<String>> getAllContinets();
+
     ResponseEntity<List<String>> getAllCountries();
     ResponseEntity<List<TableCovid>> updateTable() throws IOException;
 }

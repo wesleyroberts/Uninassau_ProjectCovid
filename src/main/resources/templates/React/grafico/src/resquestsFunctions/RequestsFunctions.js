@@ -11,7 +11,13 @@ export function GETAllCountries() {
 }
 
 export function GetByContinent(Continent) {
-  return fetch(`http://localhost:8080/data/location/${Continent}`, {
+  return fetch(`http://localhost:8080/data/continent/${Continent}`, {
+    method: "GET",
+  }).then((res) => res.json());
+}
+
+export function GetAllContinentsNames() {
+  return fetch(`http://localhost:8080/data/continets`, {
     method: "GET",
   }).then((res) => res.json());
 }

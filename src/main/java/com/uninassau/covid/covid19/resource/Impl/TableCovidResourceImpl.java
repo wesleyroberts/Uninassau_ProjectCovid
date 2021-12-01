@@ -75,6 +75,16 @@ public class TableCovidResourceImpl implements TableCovidResource {
         }
     }
 
+    @Override
+    @GetMapping(value = "/continets")
+    public ResponseEntity<List<String>> getAllContinets() {
+        try {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(tableCovidRepository.getAllContinent());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     @GetMapping(value = "/countries")

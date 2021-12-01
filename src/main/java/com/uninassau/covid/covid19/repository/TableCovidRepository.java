@@ -17,4 +17,8 @@ public interface TableCovidRepository extends JpaRepository<TableCovid,Long>{
 
     @Query(value = "SELECT DISTINCT(location) FROM table_covid;",nativeQuery = true)
     List<String> getAllCountries();
+
+    @Query(value = "SELECT DISTINCT(continent) FROM table_covid;",nativeQuery = true)
+    List<String> getAllContinent();
+
 }
