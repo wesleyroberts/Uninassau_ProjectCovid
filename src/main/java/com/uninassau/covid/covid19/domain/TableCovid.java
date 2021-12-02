@@ -1,18 +1,12 @@
 package com.uninassau.covid.covid19.domain;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.SortComparator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 
 @Entity
-@ToString
 public class TableCovid implements Serializable {
 
     @Id

@@ -1,5 +1,5 @@
-export function GetByLocation(location) {
-  return fetch(`http://localhost:8080/data/location/${location}`, {
+export function GetByLocation(country) {
+  return fetch(`http://localhost:8080/data/location/${country}`, {
     method: "GET",
   }).then((res) => res.json());
 }

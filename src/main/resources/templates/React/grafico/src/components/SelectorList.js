@@ -6,6 +6,7 @@ export default function SelectorList({
   handleChangeFilter,
   handleChangeCheckBoxByContinent,
   handleChangeCheckBox,
+  handleChangeCasesOrDeaths
 }) {
   //responsavel por adicionar e remover os dados selecionados no checkBox
   function onClick(event) {
@@ -15,13 +16,17 @@ export default function SelectorList({
       handleChangeCheckBoxByContinent(event.target);
     }
   }
-  function onSelect(event) {
+  function onSelectLocation(event) {
     handleChangeFilter(event.target);
+  }
+
+  function onSelectType(event){
+    handleChangeCasesOrDeaths(event.target)
   }
   return (
     <div>
       <Form>
-        <Form.Select onChange={onSelect}>
+        <Form.Select onChange={onSelectLocation}>
           <option size="sm" value="country">
             country
           </option>
@@ -29,9 +34,7 @@ export default function SelectorList({
             continent
           </option>
         </Form.Select>
-      </Form>
-      <Form>
-        <Form.Select>
+        <Form.Select onChange={onSelectType}>
           <option size="sm" value="total_cases">
             cases
           </option>

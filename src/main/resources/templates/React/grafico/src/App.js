@@ -16,29 +16,35 @@ export default function App() {
   const [datasets, setDatasets] = useState([]);
   const [continentList, setContinentList] = useState([]);
   const [selectContinent, setSelectContinent] = useState([]);
+  const [dataType, setDataType] = useState("total_cases")
   const [labels, setlabels] = useState([]);
   const [filter, setFilter] = useState(true);
 
   function setDataCountry(response) {
     const array = [];
     response.forEach((item, index) => {
-      if (index % 30 === 0 && item.total_deaths !== null) {
-        array.push(item.total_deaths);
-      }
+      if(dataType === "total_cases"){
+      if (index % 30 === 0 && item.total_cases !== null) {
+        array.push(item.total_cases);
+      }}else{
+        if (index % 30 === 0 && item.total_deaths !== null) {
+          array.push(item.total_deaths);
+        
+      }}
     });
 
     return array;
   }
 
-  function setDataLabels(response) {
-    const array = [];
-    response.forEach((item, index) => {
-      if (index % 30 === 0 && item.total_deaths !== null) {
-        array.push(item.total_deaths);
-      }
-    });
-    return array;
-  }
+  // function setDataLabels(response) {
+  //   const array = [];
+  //   response.forEach((item, index) => {
+  //     if (index % 30 === 0 && item.total_deaths !== null) {
+  //       array.push(item.total_deaths);
+  //     }
+  //   });
+  //   return array;
+  // }
 
   function setDataContinent(response) {
     const array = [];
@@ -121,6 +127,7 @@ export default function App() {
       setDatasets(datasets.filter((dataset) => dataset.label !== item.value));
     }
   };
+
   //Adiciona e remove valores do meu slectContinets que e utilizado para adicionar os datasets por continet
   const handleChangeCheckBoxByContinent = async (item) => {
     if (item.checked) {
@@ -138,6 +145,9 @@ export default function App() {
     } else {
       setFilter(false);
     }
+  };
+  const handleChangeCasesOrDeaths = async (item) => {
+   setDataType(item.value);
   };
 
   //usado para pegar os valores via get do banco de dados que retorna um array de String com os nomes dos paises
@@ -167,6 +177,7 @@ export default function App() {
               handleChangeCheckBoxByContinent={handleChangeCheckBoxByContinent}
               handleChangeFilter={handleChangeFilter}
               handleChangeCheckBox={handleChangeCheckBox}
+              handleChangeCasesOrDeaths={handleChangeCasesOrDeaths}
             />
           </Col>
           <Col>
